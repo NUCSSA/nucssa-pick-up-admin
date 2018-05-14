@@ -6,7 +6,7 @@ import {
 } from 'src/data/route'
 
 import HomePage from './HomePage'
-
+import CallbackPage from './admin/CallbackPage'
 
 class RoutePage extends Component {
   constructor(props) {
@@ -16,7 +16,8 @@ class RoutePage extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path={ROOT} component={HomePage}/>
+        <Route exact path={ROOT} component={HomePage} />
+        <Route path="/test" component={CallbackPage}/>
       </Switch>
     )
   }

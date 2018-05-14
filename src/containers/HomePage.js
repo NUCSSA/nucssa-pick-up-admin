@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import InfoCard from "../components/InfoCard";
+import InfoCard from 'src/components/InfoCard'
 
 class HomePage extends Component {
   constructor(props) {

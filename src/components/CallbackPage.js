@@ -1,5 +1,3 @@
-// src/Callback/Callback.js
-
 import React, { Component } from 'react'
 
 class CallbackPage extends Component {

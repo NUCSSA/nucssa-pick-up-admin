@@ -1,8 +1,9 @@
+'use strict'
+
 const express = require('express')
-const app = express()
+const router = express.Router()
 const jwt = require('express-jwt')
 const jwksRsa = require('jwks-rsa')
-const path = require('path')
 
 // Authentication middleware. When used, the
 // Access Token must exist and be verified against
@@ -19,14 +20,21 @@ const checkJwt = jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: '{YOUR_API_IDENTIFIER}',
+  audience: 'https://nucssa.auth0.com/userinfo',
   issuer: 'https://nucssa.auth0.com/',
   algorithms: ['RS256'],
 })
 
+router.get('/public', function(req, res) {
+  res.json({
+    message: 'Hello from a public endpoint! You don\'t need to be authenticated to see this.',
+  })
+})
 
-app.get('/api/login', checkJwt, function(req, res) {
+router.get('/private', checkJwt, function(req, res) {
   res.json({
     message: 'Hello from a private endpoint! You need to be authenticated to see this.',
   })
 })
+
+module.exports = router

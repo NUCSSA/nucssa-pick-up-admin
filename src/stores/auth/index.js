@@ -57,6 +57,7 @@ class AuthStore {
 
   @action logout() {
     self.removeAuthResult()
+    routingStore.history.replace('/')
   }
   // @computed
   // get isAuthenticated() {

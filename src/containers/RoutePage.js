@@ -6,12 +6,12 @@ import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 import {
-  ROOT,
   LOGIN,
+  ADMIN,
 } from 'src/data/route'
 
-import HomePage from './HomePage'
 import LoginPage from './LoginPage'
+import AdminRoutePage from './admin/AdminRoutePage'
 
 @withRouter
 @inject(stores=> {
@@ -54,8 +54,8 @@ class RoutePage extends Component {
     } else {
       return (
         <Switch>
-          <Route exact path={ROOT} component={HomePage}/>
-          <Route path={'*'} component={() => <Redirect to={ROOT}/> } />
+          <Route path={ADMIN} component={AdminRoutePage}/>
+          <Route path={'*'} component={() => <Redirect to={ADMIN}/> } />
         </Switch>
       )
     }

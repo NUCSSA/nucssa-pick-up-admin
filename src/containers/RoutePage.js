@@ -15,6 +15,7 @@ import {
 import LoginPage from './LoginPage'
 import HomePage from './HomePage'
 
+
 @withRouter
 @inject(stores=> {
   const { authStore } = stores

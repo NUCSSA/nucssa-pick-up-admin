@@ -1,70 +1,87 @@
-import { observable, action, computed } from 'mobx'
-import { getIdToken } from 'src/util/AuthService'
-import commonStore from 'src/stores/common'
-import auth0 from 'auth0-js'
+import { observable, action, reaction } from 'mobx'
+// import  userStore from 'src/stores/user'
 import routingStore from '../routing'
-
-// FIXME move constants into env vars
-const CLIENT_ID = '45TpYQlEIF4mWfewmoA6AM3BsWedhkrq'
-const DOMAIN = 'nucssa.auth0.com'
-
-const webAuth = new auth0.WebAuth({
-  domain: DOMAIN,
-  clientID: CLIENT_ID,
-  redirectUri: 'http://localhost:8081/callback',
-  audience: 'https://nucssa.auth0.com/userinfo',
-  responseType: 'token id_token',
-  scope: 'openid profile read:messages',
-})
-
+import { webAuth } from 'src/util/auth0'
+import _ from 'lodash'
+import {removeAuthResult, setAuthResult, getAuthResult} from 'src/util/cookies'
 
 class AuthStore {
-    @observable isProcessingAuth = false
-    @observable error = null
+  @observable isProcessingAuth = true
+  @observable error = null
+  @observable authResult = null
 
-    @computed get isAuthenticated() {
-      // Check whether the current time is past the
-      // access token's expiry time
-      const expiresAt = JSON.parse(localStorage.getItem('expires_at'))
-      return new Date().getTime() < expiresAt
+  constructor() {
+    const authResult = getAuthResult()
+    if(!_.isNil(authResult)) {
+      this.setAuthResult(authResult)
+    } else {
+      this.isProcessingAuth = false
     }
-
-    @action login() {
-      webAuth.authorize((err) => {
-        if (err) {
-          self.error = err
-          console.log(err)
+    reaction(
+      () => this.authResult,
+      authResult => {
+        if(authResult) {
+          setAuthResult(authResult)
+        } else {
+          removeAuthResult()
         }
-      })
-    }
+      }
+    )
+  }
 
-    @action handleAuthentication() {
-      webAuth.parseHash((err, authResult) => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          commonStore.setAuthResult(authResult)
-          routingStore.history.replace('/')
-        } else if (err) {
-          self.error = err
-          console.log(err)
-          routingStore.history.replace('/')
-        }
-      })
-    }
+  @action setAuthResult(authResult) {
+    this.authResult = authResult
+    this.isProcessingAuth = false
+  }
 
+  @action removeAuthResult() {
+    this.authResult = null
+  }
+
+  @action login() {
+    webAuth.authorize()
+  }
+
+  @action handleAuthentication() {
+    webAuth.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        routingStore.history.replace('/')
+        self.setAuthResult(authResult)
+        // userStore.getUser()
+      } else if (err) {
+        self.error = err
+        routingStore.history.replace('/')
+      }
+    })
+  }
+
+  @action logout() {
+    self.removeAuthResult()
+  }
+  // @computed
+  // get isAuthenticated() {
+  //   // Check whether the current time is past the
+  //   // access token's expiry time
+  //   const expiresAt = JSON.stringify(
+  //     this.authResult.expiresIn * 1000 + new Date().getTime()
+  //   )
+  //
+  //   return self.currentTime < expiresAt
+  // }
     // FIXME use axios
     @action getPublicData() {
-      const token = getIdToken()
-      fetch( server + 'data', {
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'pikachu ' + token,
-        },
-      })
-        .then( (res) => res.json() )
-        .then( (res) => this.publicData = res.toString())
-        .catch( (err) => this.publicData = err.toString())
-    }
+    const token = getIdToken()
+    fetch( server + 'data', {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'pikachu ' + token,
+      },
+    })
+      .then( (res) => res.json() )
+      .then( (res) => this.publicData = res.toString())
+      .catch( (err) => this.publicData = err.toString())
+  }
 
     @action getPrivateData() {
       const token = getIdToken()

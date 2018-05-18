@@ -2,15 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'mobx-react'
 import { Router } from 'react-router'
-import createBrowserHistory from 'history/createBrowserHistory'
+import createHashHistory from 'history/createHashHistory'
 import { syncHistoryWithStore } from 'mobx-react-router'
 
-const browserHistory = createBrowserHistory()
+const hashHistory = createHashHistory()
 
 import stores from './stores'
 import App from './containers'
 
-const history = syncHistoryWithStore(browserHistory, stores.routingStore)
+const history = syncHistoryWithStore(hashHistory, stores.routingStore)
 
 ReactDOM.render(
   <Provider {...stores}>

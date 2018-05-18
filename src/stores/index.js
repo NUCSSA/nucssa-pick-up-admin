@@ -1,11 +1,11 @@
 import authStore from './auth'
-import commonStore from './common'
 import routingStore from './routing'
+import userStore from './user'
 
 const stores = {
   authStore,
-  commonStore,
   routingStore,
+  userStore,
 }
 
 export default stores

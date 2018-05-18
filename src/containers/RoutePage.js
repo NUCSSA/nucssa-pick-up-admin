@@ -31,15 +31,14 @@ class RoutePage extends Component {
   }
   static propTypes = {
     handleAuthentication: PropTypes.func,
-    isProcessingAuth: PropTypes.bool,
     authResult: PropTypes.object,
   }
 
 
   render() {
-    const { handleAuthentication, authResult, isProcessingAuth }  = this.props
+    const { handleAuthentication, authResult }  = this.props
 
-    if (/access_token|id_token|error/.test(location.hash) || isProcessingAuth === true) {
+    if (/access_token|id_token|error/.test(location.hash)) {
       handleAuthentication()
       return (<h1>Loading...</h1>)
 

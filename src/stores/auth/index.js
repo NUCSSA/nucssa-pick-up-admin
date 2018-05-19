@@ -69,34 +69,6 @@ class AuthStore {
   //
   //   return self.currentTime < expiresAt
   // }
-    // FIXME use axios
-    @action getPublicData() {
-    const token = getIdToken()
-    fetch( server + 'data', {
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'pikachu ' + token,
-      },
-    })
-      .then( (res) => res.json() )
-      .then( (res) => this.publicData = res.toString())
-      .catch( (err) => this.publicData = err.toString())
-  }
-
-    @action getPrivateData() {
-      const token = getIdToken()
-      fetch( server + 'api/data', {
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'pikachu ' + token,
-        },
-      })
-        .then( (res) => res.json() )
-        .then( (res) => this.privateData = res.toString())
-        .catch( (err) => this.privateData = err.toString())
-    }
 
 }
 const self = new AuthStore()

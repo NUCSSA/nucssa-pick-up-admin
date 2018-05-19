@@ -5,11 +5,13 @@ import { withRouter } from 'react-router'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import NavBar from 'src/components/NavBar'
+import DriverRoutePage from 'src/containers/driver/DriverRoutePage'
 
 
 import {
   LOGIN,
   ROOT,
+  DRIVER,
 } from 'src/data/route'
 
 import LoginPage from './LoginPage'
@@ -55,10 +57,12 @@ class RoutePage extends Component {
 
     if (_.isNil(authResult)) {
       return(
-        <Switch>
-          <Route path={LOGIN} component={LoginPage}/>
-          <Route path={'*'} component={() => <Redirect to={LOGIN}/> } />
-        </Switch>
+        <div>
+          <Switch>
+            <Route path={LOGIN} component={LoginPage}/>
+            <Route path={'*'} component={() => <Redirect to={LOGIN}/> } />
+          </Switch>
+        </div>
       )
     } else {
       return (
@@ -66,6 +70,7 @@ class RoutePage extends Component {
           <NavBar logout={logout}/>
           <Switch>
             <Route exact path={ROOT} component={HomePage}/>
+            <Route path={DRIVER} component={DriverRoutePage} />
             <Route path={'*'} component={() => <Redirect to={ROOT}/> } />
           </Switch>
         </div>

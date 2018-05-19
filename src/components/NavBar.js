@@ -5,10 +5,10 @@ import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 
-// import { DRIVER_HOME, DRIVER_ORDERS, ORDER_QUERY } from 'src/data/route'
+import { ROOT, DRIVER } from 'src/data/route'
 
 @observer
-class AdminNavBar extends Component {
+class NavBar extends Component {
   constructor(props) {
     super(props)
     this.logout = this.logout.bind(this)
@@ -24,23 +24,23 @@ class AdminNavBar extends Component {
         <Navbar color="light" light>
           <NavbarBrand>NUCSSA Admin Page</NavbarBrand>
           <Nav navbar>
-            <Link to={'/'}>
+            <Link to={ROOT}>
               <Button className={'pull-right'}>
                 Home
               </Button>
             </Link>
           </Nav>
           <Nav navbar>
-            <Link to={'/'}>
+            <Link to={ROOT}>
               <Button className={'pull-right'}>
-                blah1
+                学生
               </Button>
             </Link>
           </Nav>
           <Nav navbar>
-            <Link to={'/'}>
+            <Link to={DRIVER}>
               <Button className={'pull-right'}>
-                blah2
+                司机
               </Button>
             </Link>
           </Nav>
@@ -55,8 +55,8 @@ class AdminNavBar extends Component {
   }
 }
 
-AdminNavBar.propTypes = {
+NavBar.propTypes = {
   logout: PropTypes.func.isRequired,
 }
 
-export default AdminNavBar
+export default NavBar

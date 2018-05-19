@@ -5,6 +5,7 @@ import { Alert } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import {withRouter} from 'react-router'
+import InfoCard from '../components/InfoCard';
 
 @withRouter
 @inject(stores => {
@@ -44,6 +45,7 @@ class LoginPage extends Component {
       return (
         <div>
           {this.renderError()}
+          <InfoCard/>
           <Button onClick={login}>Login</Button>
         </div>
       )

@@ -23,15 +23,16 @@ import HomePage from './HomePage'
   const { authStore } = stores
   const {
     handleAuthentication,
-    isProcessingAuth,
     authResult,
-    logout } = authStore
+    logout,
+    isExpired,
+  } = authStore
 
   return {
     handleAuthentication,
-    isProcessingAuth,
     authResult,
     logout,
+    isExpired,
   }
 })
 @observer
@@ -43,11 +44,12 @@ class RoutePage extends Component {
     handleAuthentication: PropTypes.func,
     authResult: PropTypes.object,
     logout: PropTypes.func,
+    isExpired: PropTypes.bool,
   }
 
 
   render() {
-    const { handleAuthentication, authResult, logout }  = this.props
+    const { handleAuthentication, authResult, logout, isExpired }  = this.props
 
     if (/access_token|id_token|error/.test(location.hash)) {
       handleAuthentication()
@@ -55,7 +57,7 @@ class RoutePage extends Component {
 
     }
 
-    if (_.isNil(authResult)) {
+    if (_.isNil(authResult) || isExpired === true) {
       return(
         <div>
           <Switch>

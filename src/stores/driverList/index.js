@@ -1,6 +1,5 @@
 import { observable, action } from 'mobx'
 import { getDriverList } from 'src/api/driver'
-import { getAccessToken } from 'src/util/cookies'
 
 class DriverListStore {
   @observable driverList = []
@@ -9,8 +8,7 @@ class DriverListStore {
   @action async getDriverList() {
     self.error = null
     try {
-      const accessToken = getAccessToken()
-      const res = await getDriverList(accessToken)
+      const res = await getDriverList()
       self.driverList = res.data
     } catch (err) {
       self.driverList = []

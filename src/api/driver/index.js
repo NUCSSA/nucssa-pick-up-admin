@@ -6,7 +6,7 @@ import { buildParamURI, buildAuthHeader } from 'src/util'
 const ADMIN_URI = 'api/admin'
 const DRIVER_LIST = ADMIN_URI + '/drivers'
 
-export const getDriverList = async function(token) {
-  const headers = buildAuthHeader(token)
+export const getDriverList = async function() {
+  const headers = buildAuthHeader()
   return await axios.get(DRIVER_LIST, { headers })
 }

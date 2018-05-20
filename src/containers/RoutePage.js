@@ -5,7 +5,7 @@ import { withRouter } from 'react-router'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
 import NavBar from 'src/components/NavBar'
-import DriverRoutePage from 'src/containers/driver/DriverRoutePage'
+import DriverRoutePage from 'src/containers/drivers/DriverRoutePage'
 
 
 import {

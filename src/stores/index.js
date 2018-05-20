@@ -1,13 +1,14 @@
 import authStore from './auth'
 import routingStore from './routing'
-import driverListStore from './driverList'
+import driversStore from './drivers'
+import driverStore from'./driver'
 // import userStore from './user'
 
 const stores = {
   authStore,
   routingStore,
-  // userStore,
-  driverListStore,
+  driverStore,
+  driversStore,
 }
 
 export default stores

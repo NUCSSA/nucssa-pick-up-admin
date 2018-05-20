@@ -46,7 +46,8 @@ class DriverSubmission extends Component {
             { verified?
               <span>已验证</span> :
               <span>未验证</span>
-            }</ListGroupItem>
+            }
+          </ListGroupItem>
         </ListGroup>
       </div>
     )

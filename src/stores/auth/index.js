@@ -4,7 +4,9 @@ import routingStore from '../routing'
 import { webAuth } from 'src/util/auth0'
 import _ from 'lodash'
 import {removeAuthResult, setAuthResult, getAuthResult} from 'src/util/cookies'
-import {getExpiresAt} from '../../util/cookies';
+import {getExpiresAt} from 'src/util/cookies'
+// import { checkTokenExpiration } from 'src/api/auth'
+
 
 class AuthStore {
   @observable isProcessingAuth = true
@@ -20,12 +22,15 @@ class AuthStore {
       this.setIsExpired(expiresAt)
     }
 
+    // checkTokenExpiration()
+
     reaction(
       () => this.authResult,
       authResult => {
         if(authResult) {
           setAuthResult(authResult)
         } else {
+          this.authResult = null
           removeAuthResult()
         }
       }
@@ -41,12 +46,14 @@ class AuthStore {
     this.isExpired = new Date().getTime() > expiresAt
     if(this.isExpired === true) {
       this.error = 'Token Expired, please login again'
+      this.authResult = null
       removeAuthResult()
     }
   }
 
   @action removeAuthResult() {
     this.authResult = null
+    removeAuthResult()
   }
 
   @action login() {
@@ -70,17 +77,6 @@ class AuthStore {
     self.removeAuthResult()
     routingStore.history.replace('/')
   }
-  // @computed
-  // get isAuthenticated() {
-  //   // Check whether the current time is past the
-  //   // access token's expiry time
-  //   const expiresAt = JSON.stringify(
-  //     this.authResult.expiresIn * 1000 + new Date().getTime()
-  //   )
-  //
-  //   return self.currentTime < expiresAt
-  // }
-
 }
 const self = new AuthStore()
 

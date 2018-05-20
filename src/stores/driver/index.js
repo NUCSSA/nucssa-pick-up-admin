@@ -1,29 +1,32 @@
 import { observable, action } from 'mobx'
-import { getDriverInfo, verifyDriver } from 'src/api/driver'
+import { getDriverInfo, verifyDriver, postUpdateDriver } from 'src/api/driver'
 
 class DriverStore {
-  @observable isVerified = false
-  @observable driverInfo = null
+  @observable driverInfo = {
+    wechatId: '',
+    name: '',
+    gender: '',
+    huskyEmail: '',
+    email: '',
+    status: '',
+    degree: '',
+    phone: '',
+    carType: '',
+    remark: '',
+    verified: false,
+  }
   @observable loading = false
-  // @observable wechatId = null
-  // @observable name = null
-  // @observable gender = null
-  // @observable huskyEmail = null
-  // @observable email = null
+  @observable message = null
   @observable error = null
-  //   let {
-  //     wechatId,
-  //     name,
-  //     gender,
-  //     huskyEmail,
-  //     email,
-  //     status,
-  //     degree,
-  //     phone,
-  //     carType,
-  //     remark,
-  //     verified,
-  //   } = this.props.driverSubmission
+
+
+  // FIXME: action?
+  setError(err) {
+    self.error = err.message
+    self.message = null
+  }
+
+
   @action async getDriverInfo({ driverWechatId }) {
     self.error = null
     try {
@@ -34,24 +37,34 @@ class DriverStore {
       self.driverInfo = null
       if (err.response) {
         self.error = err.response.data.message
+        self.message = null
       } else {
-        self.error = err.message
+        self.setError()
       }
     }
     self.loading = false
   }
 
-
   @action async verifyDriver({ driverWechatId }) {
     try {
       await verifyDriver({ driverWechatId })
-      this.isVerified = true
+      self.driverInfo.verified = true
+      self.message = 'success'
     } catch(err) {
       if (err.response) {
         self.error = err.response.data.message
+        self.message = null
       } else {
-        self.error = err.message
+        self.setError()
       }
+    }
+  }
+
+  @action async updateDriverInfo(wechatId, form) {
+    try {
+      await postUpdateDriver(wechatId, form)
+    } catch (err) {
+      self.setError(err)
     }
   }
 }

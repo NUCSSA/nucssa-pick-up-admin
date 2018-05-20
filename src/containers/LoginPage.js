@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import {withRouter} from 'react-router'
 import InfoCard from '../components/InfoCard'
-import ErrorMessage from '../components/ErrorMessage'
+import AlertMessage from '../components/AlertMessage'
 
 @withRouter
 @inject(stores => {
@@ -33,7 +33,7 @@ class LoginPage extends Component {
     renderError() {
       if (!_.isNil(this.props.error)) {
         return (
-          <ErrorMessage message={this.props.error}/>
+          <AlertMessage bsStyle={'danger'} message={this.props.error}/>
         )
       }
     }

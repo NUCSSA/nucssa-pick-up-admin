@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import DriverListPage from './DriverListPage'
 import DriverSettingsPage from './DriverSettingsPage'
 // import DriverOrdersPage from './DriverOrdersPage'
-// import DriverNavBar from 'src/components/drivers/NavBar'
+// import DriverNavBar from 'src/components/driverList/NavBar'
 import { DRIVER_LIST, DRIVER_SETTINGS } from 'src/data/route/index'
 
 

@@ -5,12 +5,13 @@ import { buildParamURI, buildAuthHeader } from 'src/util'
 
 const ADMIN_URI = 'api/admin'
 
-const DRIVERS_URI = ADMIN_URI + '/drivers'
+const DRIVER_LIST_URI = ADMIN_URI + '/driver/list'
 
 const DRIVER_URI = ADMIN_URI + '/driver'
 const PARAMS_DRIVER_WECHAT_ID = ':driverWechatId'
 const DRIVER_INFO = DRIVER_URI  +'/' + PARAMS_DRIVER_WECHAT_ID
 const VERIFY_DRIVER =  ADMIN_URI + '/verify/' + PARAMS_DRIVER_WECHAT_ID
+const POST_UPDATE_DRIVER = ADMIN_URI + '/update/' + PARAMS_DRIVER_WECHAT_ID
 
 const postVerifyDriver = function({ driverWechatId }) {
   return buildParamURI({
@@ -28,9 +29,17 @@ const getDriverInformation = function( {driverWechatId }) {
   })
 }
 
+const postUpdateDriverInfo = function ( { driverWechatId }) {
+  return buildParamURI({
+    originalURI: POST_UPDATE_DRIVER,
+    paramName: PARAMS_DRIVER_WECHAT_ID,
+    substitutedValue: driverWechatId,
+  })
+}
+
 export const getDriverList = async function() {
   const headers = buildAuthHeader()
-  return await axios.get(DRIVERS_URI, { headers })
+  return await axios.get(DRIVER_LIST_URI, { headers })
 }
 
 export const verifyDriver = async function({ driverWechatId }) {
@@ -43,4 +52,10 @@ export const getDriverInfo = async function({ driverWechatId }) {
   const uri = getDriverInformation({ driverWechatId })
   const headers = buildAuthHeader()
   return await axios.get(uri, { headers })
+}
+
+export const postUpdateDriver = async function(driverWechatId, form) {
+  const uri = postUpdateDriverInfo({driverWechatId})
+  const headers = buildAuthHeader()
+  return await axios.post(uri, form, { headers })
 }

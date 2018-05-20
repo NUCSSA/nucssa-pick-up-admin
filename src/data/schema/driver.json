@@ -1,0 +1,91 @@
+{
+  "JsonSchema": {
+    "type": "object",
+    "required": [
+      "name",
+      "gender",
+      "huskyEmail",
+      "status",
+      "degree",
+      "wechatId",
+      "phone",
+      "carType",
+      "availableTimeSlot"
+    ],
+    "properties": {
+      "name": {
+        "title": "姓名",
+        "type": "string"
+      },
+      "gender": {
+        "title": "性别",
+        "type": "string",
+        "enum": [
+          "男",
+          "女"
+        ]
+      },
+      "huskyEmail": {
+        "title": "Husky Email",
+        "type": "string",
+        "format": "email"
+      },
+      "email": {
+        "title": "其他邮箱",
+        "type": "string",
+        "format": "email"
+      },
+      "status": {
+        "title": "就读状态",
+        "type": "string",
+        "enum": [
+          "NEU在校生",
+          "NEU毕业生"
+        ]
+      },
+      "degree": {
+        "title": "就读项目",
+        "type": "string",
+        "enum": [
+          "本科",
+          "硕士",
+          "博士",
+          "以毕业"
+        ]
+      },
+      "phone": {
+        "title": "电话",
+        "type": "string"
+      },
+      "carType": {
+        "title": "车型",
+        "type": "string",
+        "enum": [
+          "2门轿车",
+          "4门轿车",
+          "SUV",
+          "其他"
+        ]
+      },
+      "availableTimeSlot": {
+        "title": "8月份可接机时间",
+        "type": "string",
+        "enum": [
+          "上午",
+          "中午",
+          "晚上",
+          "全天"
+        ]
+      },
+      "remark": {
+        "title": "备注",
+        "type": "string"
+      }
+    }
+  },
+  "UISchema": {
+    "remark": {
+      "ui:widget": "textarea"
+    }
+  }
+}

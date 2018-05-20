@@ -4,7 +4,7 @@ import { buildParamURI } from 'src/util'
 import routing from '../routing'
 import { DRIVER_SETTINGS, PARAMS_DRIVER_WECHAT_ID } from 'src/data/route'
 
-class DriversStore {
+class DriverListStore {
   @observable driverList = []
   @observable error = null
 
@@ -33,5 +33,5 @@ class DriversStore {
   }
 }
 
-const self = new DriversStore()
+const self = new DriverListStore()
 export default self

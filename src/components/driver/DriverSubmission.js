@@ -22,7 +22,6 @@ class DriverSubmission extends Component {
       phone,
       carType,
       remark,
-      verified,
     } = this.props.driverSubmission
     return (
       <div>
@@ -41,13 +40,6 @@ class DriverSubmission extends Component {
           {
             remark && <ListGroupItem>备注: { remark }</ListGroupItem>
           }
-          <ListGroupItem>
-            <b>验证状态</b>:
-            { verified?
-              <span>已验证</span> :
-              <span>未验证</span>
-            }
-          </ListGroupItem>
         </ListGroup>
       </div>
     )

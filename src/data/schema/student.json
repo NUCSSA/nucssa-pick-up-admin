@@ -1,0 +1,123 @@
+{
+  "JsonSchema": {
+    "definitions": {
+      "Student": {
+        "type": "object",
+        "required": [
+          "name",
+          "nuid",
+          "degree",
+          "email",
+          "wechatId",
+          "phone",
+          "emergencyContact",
+          "emergencyContactPhone"
+        ],
+        "properties": {
+          "name": {
+            "title": "学生姓名",
+            "type": "string"
+          },
+          "nuid": {
+            "title": "NUID",
+            "type": "string",
+            "description": "此项为您的登陆ID，请务必正确填写"
+          },
+          "degree": {
+            "title": "就读项目",
+            "type": "string",
+            "enum": [
+              "本科",
+              "硕士",
+              "博士",
+              "Pathway语言预科",
+              "CPS本科",
+              "CPS硕士",
+              "访问学者"
+            ]
+          },
+          "email": {
+            "title": "email",
+            "type": "string",
+            "format": "email"
+          },
+          "wechatId": {
+            "title": "微信ID",
+            "type": "string",
+            "description": "注意，不是昵称"
+          },
+          "phone": {
+            "title": "电话",
+            "type": "string",
+            "description": "国内电话请加86"
+          },
+          "emergencyContact": {
+            "title": "紧急联系人",
+            "type": "string"
+          },
+          "emergencyContactPhone": {
+            "title": "紧急联系人电话",
+            "type": "string",
+            "description": "国内电话请加86"
+          }
+        }
+      }
+    },
+    "title": "乘客报名表",
+    "description": "注意：乘客必须为NEU新生，因为司机的数量有限，您的订单有可能不被受理",
+    "type": "object",
+    "required": [
+      "wechatId",
+      "studentSet",
+      "arrivingTime",
+      "flightNumber",
+      "address",
+      "luggageNumber"
+    ],
+    "properties": {
+      "wechatId": {
+        "title": "主联系人的微信ID",
+        "type": "string"
+      },
+      "studentSet": {
+        "title": "乘客(学生)列表",
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 3,
+        "items": {
+          "$ref": "#/definitions/Student"
+        }
+      },
+      "arrivingTime": {
+        "title": "到达时间",
+        "type": "string"
+      },
+      "flightNumber": {
+        "title": "航班号",
+        "type": "string"
+      },
+      "address": {
+        "title": "目的地地址",
+        "type": "string"
+      },
+      "luggageNumber": {
+        "title": "行李箱总数量",
+        "type": "string"
+      },
+      "remark": {
+        "title": "备注",
+        "type": "string"
+      }
+    }
+  },
+  "UISchema": {
+    "studentSet": {
+      "ui:options": {
+        "orderable": false
+      }
+    },
+    "remark": {
+      "ui:widget": "textarea"
+    }
+  }
+}

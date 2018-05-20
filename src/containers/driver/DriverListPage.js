@@ -4,13 +4,13 @@ import _ from 'lodash'
 import { Jumbotron } from 'reactstrap'
 import PropTypes from 'prop-types'
 import DriverSubmission from 'src/components/driver/DriverSubmission'
-import ErrorMessage from 'src/components/ErrorMessage'
+import AlertMessage from 'src/components/AlertMessage'
 import DriverSettingsButton from '../../components/driver/DriverSettingsButton'
 
 
 @inject(stores => {
-  const { driversStore } = stores
-  const { driverList, getDriverList, redirectToSettings, error } = driversStore
+  const { driverListStore } = stores
+  const { driverList, getDriverList, redirectToSettings, error } = driverListStore
   return {
     driverList,
     getDriverList,
@@ -55,7 +55,7 @@ class DriverListPage extends Component {
   renderError() {
     if (!_.isNil(this.props.error)) {
       return (
-        <ErrorMessage message={this.props.error}/>
+        <AlertMessage bsStyle='danger' message={this.props.error}/>
       )
     }
   }

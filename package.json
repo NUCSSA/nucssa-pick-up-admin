@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --open --config ./config/webpack.dev.js",
-    "build:production": "webpack --config ./config/webpack.prod.js",
+    "build:production": "API_END_POINT=https://nucssa-pick-up-server.herokuapp.com webpack --config ./config/webpack.prod.js",
     "deploy": "gh-pages -d build",
     "lint": "./node_modules/.bin/eslint ./src ./config",
     "fix": "./node_modules/.bin/eslint ./src ./config --fix",

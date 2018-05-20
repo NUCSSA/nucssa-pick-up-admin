@@ -10,10 +10,11 @@ class DriverListStore {
     try {
       const res = await getDriverList()
       self.driverList = res.data
+      console.log(self.driverList)
+
     } catch (err) {
       self.driverList = []
-      self.error = err.message
-      console.log(err)
+      self.error = err.response.data.message
     }
   }
 }

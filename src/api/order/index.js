@@ -9,6 +9,8 @@ const PARAMS_DRIVER_WECHAT_ID = ':driverWechatId'
 const PARAMS_STUDENT_WECHAT_ID = ':studentWechatId'
 const DRIVER_ORDERS = ORDER_URI  +'/' + PARAMS_DRIVER_WECHAT_ID
 const DELETE_ORDER = ORDER_URI + '/' + PARAMS_STUDENT_WECHAT_ID
+const ASSIGNED_ORDERS = ORDER_URI +'/assignedList'
+const UNASSIGNED_ORDERS = ORDER_URI + '/unassignedList'
 
 const getDriverOrderList = function ( { driverWechatId }) {
   return buildParamURI({
@@ -40,4 +42,14 @@ export const cancelOrder = async function({ studentWechatId}) {
   const uri = deleteOrder({ studentWechatId})
   const headers = buildAuthHeader()
   return await axios.delete(uri, { headers })
+}
+
+export const getAssignedList = async function() {
+  const headers = buildAuthHeader()
+  return await axios.get(ASSIGNED_ORDERS, { headers })
+}
+
+export const getUnassignedList = async function() {
+  const headers = buildAuthHeader()
+  return await axios.get(UNASSIGNED_ORDERS, { headers })
 }

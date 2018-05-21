@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import InfoCard from 'src/components/InfoCard'
 import FormCard from 'src/components/FormCard'
-import {DRIVER} from 'src/data/route/index'
+import {DRIVER, STUDENT} from 'src/data/route/index'
 
 class AdminHomePage extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class AdminHomePage extends Component {
         <FormCard
           title={'学生列表'}
           description={'取消订单, 更改信息, 更换司机'}
-          link={'/'}
+          link={STUDENT}
         />
         <br/>
         <FormCard

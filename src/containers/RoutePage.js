@@ -4,18 +4,19 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
-import NavBar from 'src/components/NavBar'
-import DriverRoutePage from 'src/containers/driver/DriverRoutePage'
-
 
 import {
   LOGIN,
   ROOT,
   DRIVER,
+  STUDENT,
 } from 'src/data/route'
 
 import LoginPage from './LoginPage'
 import HomePage from './HomePage'
+import NavBar from 'src/components/NavBar'
+import DriverRoutePage from 'src/containers/driver/DriverRoutePage'
+import StudentRoutePage from 'src/containers/student/StudentRoutePage'
 
 
 @withRouter
@@ -73,6 +74,7 @@ class RoutePage extends Component {
           <Switch>
             <Route exact path={ROOT} component={HomePage}/>
             <Route path={DRIVER} component={DriverRoutePage} />
+            <Route path={STUDENT} component={StudentRoutePage}/>
             <Route path={'*'} component={() => <Redirect to={ROOT}/> } />
           </Switch>
         </div>

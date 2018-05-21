@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import StudentListPage from './StudentListPage'
-import StudentSettingsPage from './StudentSettingsPage'
-import { STUDENT_LIST, STUDENT_SETTINGS } from 'src/data/route/index'
+// import StudentSettingsPage from './StudentSettingsPage'
+import { STUDENT_LIST } from 'src/data/route/index'
 
 
 class StudentRoutePage extends Component {

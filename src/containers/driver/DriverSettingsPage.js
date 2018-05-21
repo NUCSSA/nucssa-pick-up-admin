@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { ListGroupItem } from 'react-bootstrap'
 import _ from 'lodash'
 import VerifyDriverButton from 'src/components/driver/VerifyDriverButton'
 import DriverInfo from 'src/components/driver/DriverInfo'
+import DriverOrders from '../../components/order/DriverOrders'
 
 
 @inject(stores => {
-  const { driverStore } = stores
+  const { driverStore, driverOrderStore } = stores
   const {
     getDriverInfo,
     driverInfo,
@@ -17,8 +18,13 @@ import DriverInfo from 'src/components/driver/DriverInfo'
     loading,
     error,
   } = driverStore
+  const { driverOrders,getDriverOrders, cancelOrder } = driverOrderStore
+  // const { cancelOrder }  = orderStore
   return {
     getDriverInfo,
+    driverOrders,
+    getDriverOrders,
+    cancelOrder,
     driverInfo,
     verifyDriver,
     updateDriverInfo,
@@ -34,7 +40,10 @@ class DriverSettingsPage extends Component {
 
   static propTypes = {
     getDriverInfo: PropTypes.func,
+    getDriverOrders: PropTypes.func,
     driverInfo: PropTypes.object,
+    driverOrders: MobxPropTypes.observableArray,
+    cancelOrder: PropTypes.func,
     verifyDriver: PropTypes.func,
     updateDriverInfo: PropTypes.func,
     match: PropTypes.object,
@@ -44,11 +53,17 @@ class DriverSettingsPage extends Component {
   componentWillMount() {
     const { driverWechatId }  = this.props.match.params
     this.props.getDriverInfo( { driverWechatId })
-    // this.props.getOrderList( {driverWechatId} )
+    this.props.getDriverOrders({ driverWechatId })
   }
 
   render() {
-    const { driverInfo, verifyDriver, loading, updateDriverInfo } = this.props
+    const {
+      driverInfo,
+      driverOrders,
+      cancelOrder,
+      verifyDriver,
+      loading,
+      updateDriverInfo } = this.props
 
     if (loading === true) {
       return (<h3>Loading</h3>)
@@ -70,9 +85,9 @@ class DriverSettingsPage extends Component {
         <ListGroupItem>
           <b>验证状态</b>:
           { verified?
-            <span>已验证</span> :
+            <span> 已验证</span> :
             <span>
-              <span>未验证</span>
+              <span> 未验证</span>
               <VerifyDriverButton verifyDriver={verifyDriverAction}/>
             </span>
           }
@@ -84,7 +99,12 @@ class DriverSettingsPage extends Component {
             driverSubmission={driverInfo}/>
         </ListGroupItem>
         <ListGroupItem>
-          {/*<DriverOrders orderList={null}/>*/}
+          <b>接单状态</b>:
+          <DriverOrders
+            driverOrders={driverOrders}
+            driverWechatId={wechatId}
+            cancelOrder={cancelOrder}
+          />
         </ListGroupItem>
       </div>
     )

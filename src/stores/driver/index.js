@@ -1,5 +1,9 @@
 import { observable, action } from 'mobx'
-import { getDriverInfo, verifyDriver, postUpdateDriver } from 'src/api/driver'
+import {
+  getDriverInfo,
+  verifyDriver,
+  postUpdateDriver,
+} from 'src/api/driver'
 
 class DriverStore {
   @observable driverInfo = {
@@ -15,17 +19,16 @@ class DriverStore {
     remark: '',
     verified: false,
   }
+
   @observable loading = false
   @observable message = null
   @observable error = null
 
 
-  // FIXME: action?
   setError(err) {
     self.error = err.message
     self.message = null
   }
-
 
   @action async getDriverInfo({ driverWechatId }) {
     self.error = null
@@ -67,6 +70,7 @@ class DriverStore {
       self.setError(err)
     }
   }
+
 }
 
 const self = new DriverStore()

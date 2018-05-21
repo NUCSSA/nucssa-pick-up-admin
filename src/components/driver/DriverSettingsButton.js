@@ -19,7 +19,7 @@ class DriverSettingsButton extends Component {
   render() {
     return (
       <div>
-        <Button bsStyle="info" onClick={this.onClick}>设置</Button>
+        <Button bsStyle="info" onClick={this.onClick}>查看/设置</Button>
       </div>
     )
   }

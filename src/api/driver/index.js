@@ -5,13 +5,14 @@ import { buildParamURI, buildAuthHeader } from 'src/util'
 
 const ADMIN_URI = 'api/admin'
 
-const DRIVER_LIST_URI = ADMIN_URI + '/driver/list'
+const DRIVER_URI = ADMIN_URI + '/drivers'
 
-const DRIVER_URI = ADMIN_URI + '/driver'
 const PARAMS_DRIVER_WECHAT_ID = ':driverWechatId'
+
+const DRIVER_LIST_URI = DRIVER_URI + '/list'
 const DRIVER_INFO = DRIVER_URI  +'/' + PARAMS_DRIVER_WECHAT_ID
-const VERIFY_DRIVER =  ADMIN_URI + '/verify/' + PARAMS_DRIVER_WECHAT_ID
-const POST_UPDATE_DRIVER = ADMIN_URI + '/update/' + PARAMS_DRIVER_WECHAT_ID
+const VERIFY_DRIVER =  DRIVER_URI + '/verify/' + PARAMS_DRIVER_WECHAT_ID
+const POST_UPDATE_DRIVER = DRIVER_URI + '/update/' + PARAMS_DRIVER_WECHAT_ID
 
 const postVerifyDriver = function({ driverWechatId }) {
   return buildParamURI({
@@ -36,6 +37,7 @@ const postUpdateDriverInfo = function ( { driverWechatId }) {
     substitutedValue: driverWechatId,
   })
 }
+
 
 export const getDriverList = async function() {
   const headers = buildAuthHeader()

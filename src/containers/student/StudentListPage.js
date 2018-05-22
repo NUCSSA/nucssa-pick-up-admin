@@ -6,10 +6,11 @@ import AlertMessage from 'src/components/AlertMessage'
 import StudentSubmission from 'src/components/student/StudentSubmission'
 import { Jumbotron } from 'reactstrap'
 import { Tabs, Tab } from 'react-bootstrap'
+import StudentSettingsButton from '../../components/student/StudentSettingsButton'
 
 
 @inject(stores => {
-  const { studentOrderStore } = stores
+  const { studentListStore } = stores
   const {
     assignedList,
     getAssignedList,
@@ -19,7 +20,7 @@ import { Tabs, Tab } from 'react-bootstrap'
     assignedLoading,
     unassignedLoading,
     error,
-  } = studentOrderStore
+  } = studentListStore
   return {
     assignedList,
     getAssignedList,
@@ -68,14 +69,15 @@ class StudentListPage extends Component {
   }
 
   renderAssignedList() {
-    const { assignedList, assignedLoading } = this.props
-    if (assignedLoading === true) {
-      return <h3>Loading...</h3>
-    }
-    return _.map(assignedList, (o) => {
+    const { redirectToSettings, assignedList } = this.props
+    return _.map(assignedList, (s) => {
+      const redirectToSettingsAction = () => {
+        redirectToSettings({ studentWechatId: s.studentWechatId })
+      }
       return (
-        <div key={o.studentWechatId}>
-          <StudentSubmission studentSubmission={o.student}/>
+        <div key={s.studentWechatId}>
+          <StudentSettingsButton redirectToSettings={redirectToSettingsAction}/>
+          <StudentSubmission studentSubmission={s.student}/>
           <br/>
         </div>
       )
@@ -83,13 +85,14 @@ class StudentListPage extends Component {
   }
 
   renderUnassignedList() {
-    const { unassignedList, unassignedLoading } = this.props
-    if (unassignedLoading === true) {
-      return <h3>Loading...</h3>
-    }
+    const { unassignedList, redirectToSettings } = this.props
     return _.map(unassignedList, (s) => {
+      const redirectToSettingsAction = () => {
+        redirectToSettings({ studentWechatId: s.studentWechatId })
+      }
       return (
         <div key={s.wechatId}>
+          <StudentSettingsButton redirectToSettings={redirectToSettingsAction}/>
           <StudentSubmission studentSubmission={s}/>
           <br/>
         </div>
@@ -106,19 +109,20 @@ class StudentListPage extends Component {
   }
 
   render() {
+    const { assignedLoading, unassignedLoading } = this.props
+
     return (
       <div>
         {this.renderError()}
         <Jumbotron>
           <h3 className='display-6'>乘客列表</h3>
         </Jumbotron>
-
-        <Tabs defaultActiveKey='assigned' id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey='assigned' id="student-list-tabs">
           <Tab eventKey='assigned' title="被接单学生">
-            {this.renderAssignedList()}
+            {assignedLoading? <h3>Loading...</h3> : this.renderAssignedList()}
           </Tab>
           <Tab eventKey='unassigned' title="等单学生">
-            {this.renderUnassignedList()}
+            {unassignedLoading? <h3>Loading...</h3> : this.renderUnassignedList()}
           </Tab>
         </Tabs>
       </div>

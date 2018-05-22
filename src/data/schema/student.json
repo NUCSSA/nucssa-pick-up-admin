@@ -63,11 +63,8 @@
         }
       }
     },
-    "title": "乘客报名表",
-    "description": "注意：乘客必须为NEU新生，因为司机的数量有限，您的订单有可能不被受理",
     "type": "object",
     "required": [
-      "wechatId",
       "studentSet",
       "arrivingTime",
       "flightNumber",
@@ -75,10 +72,6 @@
       "luggageNumber"
     ],
     "properties": {
-      "wechatId": {
-        "title": "主联系人的微信ID",
-        "type": "string"
-      },
       "studentSet": {
         "title": "乘客(学生)列表",
         "type": "array",

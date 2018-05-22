@@ -3,8 +3,9 @@ import routingStore from './routing'
 import driverListStore from './driverList'
 import driverStore from'./driver'
 import driverOrderStore from './driverOrder'
+import studentListStore from './studentList'
+import studentStore from './student'
 import studentOrderStore from './studentOrder'
-// import userStore from './user'
 
 const stores = {
   authStore,
@@ -12,6 +13,8 @@ const stores = {
   driverStore,
   driverListStore,
   driverOrderStore,
+  studentStore,
+  studentListStore,
   studentOrderStore,
 }
 

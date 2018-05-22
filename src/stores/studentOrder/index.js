@@ -1,47 +1,47 @@
 import { observable, action } from 'mobx'
 import {
-  getAssignedList,
-  getUnassignedList,
-} from 'src/api/student'
+  cancelOrder,
+  getStudentOrder,
+} from 'src/api/order'
 
 class StudentOrderStore {
-  @observable assignedList = []
-  @observable unassignedList = []
-  @observable assignedLoading = true
-  @observable unassignedLoading = true
+  @observable studentOrder = null
+  @observable studentWechatId = ''
+  @observable message = null
+  @observable loadingOrder = true
   @observable error = null
 
-  @action async getAssignedList() {
-    self.error = null
-    try {
-      const res = await getAssignedList()
-      self.assignedList = res.data
-    } catch (err) {
-      self.assignedList = []
-      if (err.response) {
-        self.error = err.response.data.message
-      } else {
-        self.error = err.message
-      }
-    }
-    self.assignedLoading = false
+
+  setError(err) {
+    self.error = err.message
+    self.message = null
   }
 
-  @action async getUnassignedList() {
+  @action async cancelOrder({ studentWechatId }) {
     self.error = null
     try {
-      const res = await getUnassignedList()
-      self.unassignedList = res.data
+      await cancelOrder({ studentWechatId })
+      self.getStudentOrder({ studentWechatId: self.studentWechatId })
     } catch (err) {
-      self.unassignedList = []
-      if (err.response) {
-        self.error = err.response.data.message
-      } else {
-        self.error = err.message
-      }
+      self.driverOrders = []
+      self.error = err.message
     }
-    self.unassignedLoading = false
   }
+
+  @action async getStudentOrder({ studentWechatId }) {
+    self.error = null
+    self.studentWechatId = studentWechatId
+    try {
+      let res = await getStudentOrder({ studentWechatId })
+      self.studentOrder = res.data
+    } catch (err) {
+      self.driverOrders = []
+      self.error = err.message
+    }
+    self.loadingOrder = false
+  }
+
+
 }
 
 const self = new StudentOrderStore()

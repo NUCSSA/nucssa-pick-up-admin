@@ -21,7 +21,12 @@ class StudentOrderStore {
     self.error = null
     try {
       await cancelOrder({ studentWechatId })
-      self.getStudentOrder({ studentWechatId: self.studentWechatId })
+      try {
+        await self.getStudentOrder({studentWechatId: self.studentWechatId})
+      } catch(err) {
+        self.driverOrders = []
+        self.error = err.message
+      }
     } catch (err) {
       self.driverOrders = []
       self.error = err.message

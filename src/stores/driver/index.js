@@ -4,6 +4,7 @@ import {
   verifyDriver,
   postUpdateDriver,
 } from 'src/api/driver'
+import _ from 'lodash'
 
 class DriverStore {
   @observable driverInfo = {
@@ -35,7 +36,13 @@ class DriverStore {
     try {
       self.loading = true
       const res = await getDriverInfo({ driverWechatId })
-      self.driverInfo = res.data
+      const { data } = res
+      if(_.isNil(data.error)) {
+        self.driverInfo = data
+      } else {
+        self.driverInfo = null
+        self.error = data.error
+      }
     } catch (err) {
       self.driverInfo = null
       if (err.response) {

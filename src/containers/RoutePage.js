@@ -9,12 +9,13 @@ import {
   LOGIN,
   ROOT,
   DRIVER,
-  STUDENT,
+  STUDENT, SEARCH,
 } from 'src/data/route'
 
 import LoginPage from './LoginPage'
 import HomePage from './HomePage'
 import NavBar from 'src/components/NavBar'
+import SearchPage from './SearchPage'
 import DriverRoutePage from 'src/containers/driver/DriverRoutePage'
 import StudentRoutePage from 'src/containers/student/StudentRoutePage'
 
@@ -74,7 +75,8 @@ class RoutePage extends Component {
           <Switch>
             <Route exact path={ROOT} component={HomePage}/>
             <Route path={DRIVER} component={DriverRoutePage} />
-            <Route path={STUDENT} component={StudentRoutePage}/>
+            <Route path={STUDENT} component={StudentRoutePage} />
+            <Route path={SEARCH} component={SearchPage} />
             <Route path={'*'} component={() => <Redirect to={ROOT}/> } />
           </Switch>
         </div>

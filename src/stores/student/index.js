@@ -3,6 +3,7 @@ import {
   getStudentInfo,
   postUpdateStudent,
 } from 'src/api/student'
+import _ from 'lodash'
 
 class StudentStore {
   @observable studentInfo = {
@@ -32,7 +33,13 @@ class StudentStore {
     try {
       self.loading = true
       const res = await getStudentInfo({ studentWechatId })
-      self.studentInfo = res.data
+      const { data } = res
+      if (_.isNil(data.error)) {
+        self.studentInfo = data
+      } else {
+        self.studentInfo = null
+        self.error = data.error
+      }
     } catch (err) {
       self.studentInfo = null
       if (err.response) {

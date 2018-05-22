@@ -33,7 +33,7 @@ class OrderStore {
     }
   }
 
-  @action async getDriverOrders({ driverWechatId}) {
+  @action async getDriverOrders({ driverWechatId }) {
     self.driverWechatId = driverWechatId
     self.error = null
     try {

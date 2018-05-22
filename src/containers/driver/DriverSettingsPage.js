@@ -18,13 +18,13 @@ import DriverOrders from '../../components/order/DriverOrders'
     loading,
     error,
   } = driverStore
-  const { driverOrders,getDriverOrders, cancelOrder } = driverOrderStore
+  const { driverOrders,getDriverOrders, cancelStudentOrder } = driverOrderStore
   // const { cancelOrder }  = orderStore
   return {
     getDriverInfo,
     driverOrders,
     getDriverOrders,
-    cancelOrder,
+    cancelStudentOrder,
     driverInfo,
     verifyDriver,
     updateDriverInfo,
@@ -43,7 +43,7 @@ class DriverSettingsPage extends Component {
     getDriverOrders: PropTypes.func,
     driverInfo: PropTypes.object,
     driverOrders: MobxPropTypes.observableArray,
-    cancelOrder: PropTypes.func,
+    cancelStudentOrder: PropTypes.func,
     verifyDriver: PropTypes.func,
     updateDriverInfo: PropTypes.func,
     match: PropTypes.object,
@@ -60,7 +60,7 @@ class DriverSettingsPage extends Component {
     const {
       driverInfo,
       driverOrders,
-      cancelOrder,
+      cancelStudentOrder,
       verifyDriver,
       loading,
       updateDriverInfo } = this.props
@@ -103,7 +103,7 @@ class DriverSettingsPage extends Component {
           <DriverOrders
             driverOrders={driverOrders}
             driverWechatId={wechatId}
-            cancelOrder={cancelOrder}
+            cancelStudentOrder={cancelStudentOrder}
           />
         </ListGroupItem>
       </div>

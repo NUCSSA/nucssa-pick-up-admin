@@ -16,13 +16,13 @@ import StudentOrder from '../../components/order/StudentOrder'
     loading,
     error,
   } = studentStore
-  const { studentOrder, getStudentOrder, cancelOrder, loadingOrder } = studentOrderStore
+  const { studentOrder, getStudentOrder, cancelDriverOrder, loadingOrder } = studentOrderStore
   // const { cancelOrder }  = orderStore
   return {
     getStudentInfo,
     studentOrder,
     getStudentOrder,
-    cancelOrder,
+    cancelDriverOrder,
     studentInfo,
     updateStudentInfo,
     loading,
@@ -41,7 +41,7 @@ class StudentSettingsPage extends Component {
     getStudentOrder: PropTypes.func,
     studentInfo: PropTypes.object,
     studentOrder: PropTypes.object,
-    cancelOrder: PropTypes.func,
+    cancelDriverOrder: PropTypes.func,
     updateStudentInfo: PropTypes.func,
     match: PropTypes.object,
     loading: PropTypes.bool,
@@ -53,17 +53,17 @@ class StudentSettingsPage extends Component {
     this.props.getStudentInfo( { studentWechatId })
     this.props.getStudentOrder({ studentWechatId })
   }
-  //
+
   render() {
     const {
       studentInfo,
       studentOrder,
-      cancelOrder,
+      cancelDriverOrder,
       loading,
       loadingOrder,
       updateStudentInfo,
     } = this.props
-    //
+
     if (loading === true || loadingOrder === true) {
       return (<h3>Loading...</h3>)
     }
@@ -80,7 +80,7 @@ class StudentSettingsPage extends Component {
           <StudentOrder
             studentOrder={studentOrder}
             studentWechatId={wechatId}
-            cancelOrder={cancelOrder}
+            cancelDriverOrder={cancelDriverOrder}
           />
         </ListGroupItem>
         <ListGroupItem>

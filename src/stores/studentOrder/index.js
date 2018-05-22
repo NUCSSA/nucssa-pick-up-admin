@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 import {
-  cancelOrder,
+  cancelDriverOrder,
   getStudentOrder,
 } from 'src/api/order'
 
@@ -17,10 +17,10 @@ class StudentOrderStore {
     self.message = null
   }
 
-  @action async cancelOrder({ studentWechatId }) {
+  @action async cancelDriverOrder({ studentWechatId }) {
     self.error = null
     try {
-      await cancelOrder({ studentWechatId })
+      await cancelDriverOrder({ studentWechatId })
       try {
         await self.getStudentOrder({studentWechatId: self.studentWechatId})
       } catch(err) {

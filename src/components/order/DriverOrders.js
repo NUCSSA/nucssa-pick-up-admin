@@ -15,8 +15,8 @@ class DriverOrders extends Component {
   }
 
   onCancelOrder({ studentWechatId }) {
-    const { cancelOrder } = this.props
-    cancelOrder({ studentWechatId })
+    const { cancelStudentOrder } = this.props
+    cancelStudentOrder({ studentWechatId })
 
   }
 
@@ -45,7 +45,7 @@ class DriverOrders extends Component {
 
 DriverOrders.propTypes = {
   driverOrders: MobxPropTypes.observableArray,
-  cancelOrder: PropTypes.func,
+  cancelStudentOrder: PropTypes.func,
   driverWechatId: PropTypes.string,
 }
 

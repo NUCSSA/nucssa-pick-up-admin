@@ -57,9 +57,10 @@ class DriverStore {
 
   @action async verifyDriver({ driverWechatId }) {
     try {
+      self.message = null
       await verifyDriver({ driverWechatId })
       self.driverInfo.verified = true
-      self.message = 'success'
+      self.message = 'Verified'
     } catch(err) {
       if (err.response) {
         self.error = err.response.data.message
@@ -72,7 +73,9 @@ class DriverStore {
 
   @action async updateDriverInfo(wechatId, form) {
     try {
+      self.message = null
       await postUpdateDriver(wechatId, form)
+      self.message = 'Updated'
     } catch (err) {
       self.setError(err)
     }

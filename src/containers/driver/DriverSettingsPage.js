@@ -6,6 +6,8 @@ import _ from 'lodash'
 import VerifyDriverButton from 'src/components/driver/VerifyDriverButton'
 import DriverInfo from 'src/components/driver/DriverInfo'
 import DriverOrders from '../../components/order/DriverOrders'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 @inject(stores => {
@@ -16,6 +18,7 @@ import DriverOrders from '../../components/order/DriverOrders'
     verifyDriver,
     updateDriverInfo,
     loading,
+    message,
     error,
   } = driverStore
   const { driverOrders,getDriverOrders, cancelStudentOrder } = driverOrderStore
@@ -29,6 +32,7 @@ import DriverOrders from '../../components/order/DriverOrders'
     verifyDriver,
     updateDriverInfo,
     loading,
+    message,
     error,
   }
 })
@@ -47,6 +51,7 @@ class DriverSettingsPage extends Component {
     verifyDriver: PropTypes.func,
     updateDriverInfo: PropTypes.func,
     match: PropTypes.object,
+    message: PropTypes.string,
     loading: PropTypes.bool,
   }
 
@@ -54,6 +59,14 @@ class DriverSettingsPage extends Component {
     const { driverWechatId }  = this.props.match.params
     this.props.getDriverInfo( { driverWechatId })
     this.props.getDriverOrders({ driverWechatId })
+  }
+
+  componentWillReceiveProps(nextProp) {
+    if (this.props.message !== nextProp.message) {
+      if(!_.isNil(nextProp.message)) {
+        toast.info(nextProp.message)
+      }
+    }
   }
 
   render() {
@@ -81,6 +94,7 @@ class DriverSettingsPage extends Component {
     }
     return (
       <div>
+        <ToastContainer />
         <ListGroupItem><b>微信ID</b>: {wechatId}</ListGroupItem>
         <ListGroupItem>
           <b>验证状态</b>:

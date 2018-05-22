@@ -66,7 +66,7 @@ class DriverSettingsPage extends Component {
       updateDriverInfo } = this.props
 
     if (loading === true) {
-      return (<h3>Loading</h3>)
+      return (<h3>Loading...</h3>)
     }
 
     if (_.isNil(driverInfo)) {

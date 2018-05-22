@@ -3,7 +3,7 @@ import routingStore from './routing'
 import driverListStore from './driverList'
 import driverStore from'./driver'
 import driverOrderStore from './driverOrder'
-import orderListStore from './orderList'
+import studentOrderStore from './studentOrder'
 // import userStore from './user'
 
 const stores = {
@@ -12,7 +12,7 @@ const stores = {
   driverStore,
   driverListStore,
   driverOrderStore,
-  orderListStore,
+  studentOrderStore,
 }
 
 export default stores

@@ -7,6 +7,7 @@ import { DRIVER_SETTINGS, PARAMS_DRIVER_WECHAT_ID } from 'src/data/route'
 class DriverListStore {
   @observable driverList = []
   @observable error = null
+  @observable loading = true
 
   @action async getDriverList() {
     self.error = null
@@ -21,6 +22,7 @@ class DriverListStore {
         self.error = err.message
       }
     }
+    self.loading = false
   }
 
   @action redirectToSettings({ driverWechatId }) {

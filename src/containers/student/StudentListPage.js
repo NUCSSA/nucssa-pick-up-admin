@@ -8,14 +8,26 @@ import StudentSubmission from 'src/components/student/StudentSubmission'
 
 
 @inject(stores => {
-  const { orderListStore } = stores
+  const { studentOrderStore } = stores
+  const {
+    assignedList,
+    getAssignedList,
+    unassignedList,
+    getUnassignedList,
+    redirectToSettings,
+    assignedLoading,
+    unassignedLoading,
+    error,
+  } = studentOrderStore
   return {
-    assignedList: orderListStore.assignedList,
-    getAssignedList: orderListStore.getAssignedList,
-    unassignedList: orderListStore.unassignedList,
-    getUnassignedList: orderListStore.getUnassignedList,
-    redirectToSettings: orderListStore.redirectToSettings,
-    error: orderListStore.error,
+    assignedList,
+    getAssignedList,
+    unassignedList,
+    getUnassignedList,
+    redirectToSettings,
+    assignedLoading,
+    unassignedLoading,
+    error,
   }
 })
 @observer
@@ -32,6 +44,8 @@ class StudentListPage extends Component {
     unassignedList: MobxPropTypes.observableArray,
     getUnassignedList: PropTypes.func,
     redirectToSettings: PropTypes.func,
+    assignedLoading: PropTypes.bool,
+    unassignedLoading: PropTypes.bool,
     error: PropTypes.string,
   }
 
@@ -42,9 +56,11 @@ class StudentListPage extends Component {
   }
 
   renderAssignedList() {
-    const { assignedList } = this.props
+    const { assignedList, assignedLoading } = this.props
+    if (assignedLoading === true) {
+      return <h3>Loading...</h3>
+    }
     return _.map(assignedList, (o) => {
-      console.log(o)
       return (
         <div key={o.studentWechatId}>
           <StudentSubmission studentSubmission={o.student}/>
@@ -55,9 +71,11 @@ class StudentListPage extends Component {
   }
 
   renderUnassignedList() {
-    const { unassignedList } = this.props
+    const { unassignedList, unassignedLoading } = this.props
+    if (unassignedLoading === true) {
+      return <h3>Loading...</h3>
+    }
     return _.map(unassignedList, (s) => {
-      console.log(s)
       return (
         <div key={s.wechatId}>
           <StudentSubmission studentSubmission={s}/>
@@ -82,9 +100,9 @@ class StudentListPage extends Component {
         <Jumbotron>
           <h3 className='display-6'>乘客列表</h3>
         </Jumbotron>
-        <h1>Assigned</h1>
+        <h1>被接单学生</h1>
         {this.renderAssignedList()}
-        <h1>Unassigned</h1>
+        <h1>等单学生</h1>
         {this.renderUnassignedList()}
       </div>
     )

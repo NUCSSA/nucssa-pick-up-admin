@@ -10,11 +10,12 @@ import DriverSettingsButton from '../../components/driver/DriverSettingsButton'
 
 @inject(stores => {
   const { driverListStore } = stores
-  const { driverList, getDriverList, redirectToSettings, error } = driverListStore
+  const { driverList, getDriverList, redirectToSettings, loading, error } = driverListStore
   return {
     driverList,
     getDriverList,
     redirectToSettings,
+    loading,
     error,
   }
 })
@@ -29,6 +30,7 @@ class DriverListPage extends Component {
     driverList: MobxPropTypes.observableArray,
     getDriverList: PropTypes.func,
     redirectToSettings: PropTypes.func,
+    loading: PropTypes.bool,
     error: PropTypes.string,
   }
 
@@ -67,7 +69,7 @@ class DriverListPage extends Component {
         <Jumbotron>
           <h3 className='display-6'>司机列表</h3>
         </Jumbotron>
-        {this.renderDriverList()}
+        {this.props.loading? <h3>Loading...</h3> : this.renderDriverList()}
       </div>
     )
   }

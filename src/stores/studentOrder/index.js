@@ -1,12 +1,14 @@
 import { observable, action } from 'mobx'
 import {
   getAssignedList,
-  getUnassignedList
-} from 'src/api/order'
+  getUnassignedList,
+} from 'src/api/student'
 
-class OrderListStore {
+class StudentOrderStore {
   @observable assignedList = []
   @observable unassignedList = []
+  @observable assignedLoading = true
+  @observable unassignedLoading = true
   @observable error = null
 
   @action async getAssignedList() {
@@ -22,6 +24,7 @@ class OrderListStore {
         self.error = err.message
       }
     }
+    self.assignedLoading = false
   }
 
   @action async getUnassignedList() {
@@ -37,8 +40,9 @@ class OrderListStore {
         self.error = err.message
       }
     }
+    self.unassignedLoading = false
   }
 }
 
-const self = new OrderListStore()
+const self = new StudentOrderStore()
 export default self

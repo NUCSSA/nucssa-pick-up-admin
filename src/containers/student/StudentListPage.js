@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react'
 import _ from 'lodash'
-import { Jumbotron } from 'reactstrap'
 import PropTypes from 'prop-types'
 import AlertMessage from 'src/components/AlertMessage'
 import StudentSubmission from 'src/components/student/StudentSubmission'
+import { Jumbotron } from 'reactstrap'
+import { Tabs, Tab } from 'react-bootstrap'
 
 
 @inject(stores => {
@@ -35,7 +36,18 @@ class StudentListPage extends Component {
   constructor(props) {
     super(props)
     this.renderError = this.renderError.bind(this)
+    this.toggle = this.toggle.bind(this)
+    this.state = {
+      activeTab: 'assigned',
+    }
+  }
 
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      })
+    }
   }
 
   static propTypes = {
@@ -100,10 +112,15 @@ class StudentListPage extends Component {
         <Jumbotron>
           <h3 className='display-6'>乘客列表</h3>
         </Jumbotron>
-        <h1>被接单学生</h1>
-        {this.renderAssignedList()}
-        <h1>等单学生</h1>
-        {this.renderUnassignedList()}
+
+        <Tabs defaultActiveKey='assigned' id="uncontrolled-tab-example">
+          <Tab eventKey='assigned' title="被接单学生">
+            {this.renderAssignedList()}
+          </Tab>
+          <Tab eventKey='unassigned' title="等单学生">
+            {this.renderUnassignedList()}
+          </Tab>
+        </Tabs>
       </div>
     )
   }

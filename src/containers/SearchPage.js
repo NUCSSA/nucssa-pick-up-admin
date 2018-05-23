@@ -73,12 +73,12 @@ class SearchPage extends Component {
         />
       </FormGroup>
       <FormGroup controlId="formControlsSelect">
-        <ControlLabel>Select Type</ControlLabel>
+        <ControlLabel>用户类型</ControlLabel>
         <FormControl onChange={this.handleChangeType}
           componentClass="select"
           placeholder="student">
-          <option value="student">student</option>
-          <option value="driver">driver</option>
+          <option value="student">学生/乘客</option>
+          <option value="driver">司机</option>
         </FormControl>
       </FormGroup>
       <Button bsStyle="info" type="submit" block>搜索</Button>

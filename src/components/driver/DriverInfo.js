@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { observer, inject } from 'mobx-react'
+import { observer } from 'mobx-react'
 import JsonSchemaForm from 'react-jsonschema-form'
-import _ from 'lodash'
 import {driverFormData} from 'src/data/schema/index'
 
 @observer

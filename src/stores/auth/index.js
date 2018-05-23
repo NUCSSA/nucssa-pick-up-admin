@@ -1,28 +1,23 @@
 import { observable, action, reaction } from 'mobx'
-// import  userStore from 'src/stores/user'
 import routingStore from '../routing'
 import { webAuth } from 'src/util/auth0'
 import _ from 'lodash'
 import {removeAuthResult, setAuthResult, getAuthResult} from 'src/util/cookies'
 import {getExpiresAt} from 'src/util/cookies'
-// import { checkTokenExpiration } from 'src/api/auth'
 
 
 class AuthStore {
   @observable isProcessingAuth = true
   @observable error = null
   @observable authResult = null
-  @observable isExpired = false
 
   constructor() {
     const authResult = getAuthResult()
-    const expiresAt = getExpiresAt()
-    if(!_.isNil(authResult) && !_.isNil(expiresAt)) {
+    // FIXME handle expiration
+    // const expiresAt = getExpiresAt()
+    if(!_.isNil(authResult)) {
       this.setAuthResult(authResult)
-      this.setIsExpired(expiresAt)
     }
-
-    // checkTokenExpiration()
 
     reaction(
       () => this.authResult,
@@ -35,6 +30,8 @@ class AuthStore {
         }
       }
     )
+
+    // setTimeout(this.handleExpiration, new Date().getTime() > expiresAt)
   }
 
   @action setAuthResult(authResult) {
@@ -42,13 +39,10 @@ class AuthStore {
     this.isProcessingAuth = false
   }
 
-  @action setIsExpired(expiresAt) {
-    this.isExpired = new Date().getTime() > expiresAt
-    if(this.isExpired === true) {
-      this.error = 'Token Expired, please login again'
-      this.authResult = null
-      removeAuthResult()
-    }
+  @action handleExpiration() {
+    self.error = 'Token Expired, please login again'
+    self.authResult = null
+    removeAuthResult()
   }
 
   @action removeAuthResult() {
@@ -65,7 +59,6 @@ class AuthStore {
       if (authResult && authResult.accessToken && authResult.idToken) {
         routingStore.history.replace('/')
         self.setAuthResult(authResult)
-        // userStore.getUser()
       } else if (err) {
         self.error = err
         routingStore.history.replace('/')

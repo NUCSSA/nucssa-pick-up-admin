@@ -71,7 +71,7 @@ class StudentListPage extends Component {
   renderAssignedList() {
     const { redirectToSettings, assignedList } = this.props
     if (assignedList.length === 0) {
-      return (<h4>No assigned student</h4>)
+      return (<h4>没有被接单学生</h4>)
     }
     return _.map(assignedList, (s) => {
       const redirectToSettingsAction = () => {
@@ -90,7 +90,7 @@ class StudentListPage extends Component {
   renderUnassignedList() {
     const { unassignedList, redirectToSettings } = this.props
     if (unassignedList.length === 0) {
-      return (<h4>No unassignedList student</h4>)
+      return (<h4>没有等单学生</h4>)
     }
     return _.map(unassignedList, (s) => {
       const redirectToSettingsAction = () => {

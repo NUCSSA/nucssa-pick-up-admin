@@ -6,6 +6,15 @@ import {
 } from 'src/api/driver'
 import _ from 'lodash'
 
+const setError = function(err) {
+  if (!_.isNil(err.response)) {
+    self.error = err.response.data.message
+  } else {
+    self.error = err.message
+  }
+  self.message = null
+}
+
 class DriverStore {
   @observable driverInfo = {
     wechatId: '',
@@ -20,21 +29,15 @@ class DriverStore {
     remark: '',
     verified: false,
   }
-
-  @observable loading = false
+  @observable verifyLoading = false
+  @observable loading = true
   @observable message = null
   @observable error = null
 
-
-  setError(err) {
-    self.error = err.message
-    self.message = null
-  }
-
   @action async getDriverInfo({ driverWechatId }) {
     self.error = null
+    self.loading = true
     try {
-      self.loading = true
       const res = await getDriverInfo({ driverWechatId })
       const { data } = res
       if(_.isNil(data.error)) {
@@ -45,39 +48,31 @@ class DriverStore {
       }
     } catch (err) {
       self.driverInfo = null
-      if (err.response) {
-        self.error = err.response.data.message
-        self.message = null
-      } else {
-        self.setError()
-      }
+      setError(err)
     }
     self.loading = false
   }
 
   @action async verifyDriver({ driverWechatId }) {
+    self.verifyLoading = true
     try {
       self.message = null
       await verifyDriver({ driverWechatId })
       self.driverInfo.verified = true
-      self.message = 'Verified'
+      self.message = '验证成功'
     } catch(err) {
-      if (err.response) {
-        self.error = err.response.data.message
-        self.message = null
-      } else {
-        self.setError()
-      }
+      setError(err)
     }
+    self.verifyLoading = false
   }
 
   @action async updateDriverInfo(wechatId, form) {
     try {
       self.message = null
       await postUpdateDriver(wechatId, form)
-      self.message = 'Updated'
+      self.message = '司机信息已更新'
     } catch (err) {
-      self.setError(err)
+      setError(err)
     }
   }
 

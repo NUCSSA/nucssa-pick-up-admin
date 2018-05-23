@@ -5,6 +5,15 @@ import {
 } from 'src/api/student'
 import _ from 'lodash'
 
+const setError = function(err) {
+  if (!_.isNil(err.response)) {
+    self.error = err.response.data.message
+  } else {
+    self.error = err.message
+    self.message = null
+  }
+}
+
 class StudentStore {
   @observable studentInfo = {
     wechatId: '',
@@ -23,10 +32,6 @@ class StudentStore {
   @observable error = null
 
 
-  setError(err) {
-    self.error = err.message
-    self.message = null
-  }
 
   @action async getStudentInfo({ studentWechatId }) {
     self.error = null
@@ -42,12 +47,7 @@ class StudentStore {
       }
     } catch (err) {
       self.studentInfo = null
-      if (err.response) {
-        self.error = err.response.data.message
-        self.message = null
-      } else {
-        self.setError()
-      }
+      setError(err)
     }
     self.loading = false
   }
@@ -56,6 +56,7 @@ class StudentStore {
   @action async updateStudentInfo(wechatId, form) {
     try {
       await postUpdateStudent(wechatId, form)
+      self.message = '学生信息更新成功'
     } catch (err) {
       self.setError(err)
     }

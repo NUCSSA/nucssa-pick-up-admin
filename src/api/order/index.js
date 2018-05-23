@@ -1,5 +1,4 @@
 import { axios } from 'src/api/axios'
-import _ from 'lodash'
 
 import { buildParamURI, buildAuthHeader } from 'src/util'
 

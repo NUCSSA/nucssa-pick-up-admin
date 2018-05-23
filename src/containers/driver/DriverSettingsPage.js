@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css'
     verifyDriver,
     updateDriverInfo,
     loading,
+    verifyLoading,
     message,
     error,
   } = driverStore
@@ -32,6 +33,7 @@ import 'react-toastify/dist/ReactToastify.css'
     verifyDriver,
     updateDriverInfo,
     loading,
+    verifyLoading,
     message,
     error,
   }
@@ -52,6 +54,8 @@ class DriverSettingsPage extends Component {
     updateDriverInfo: PropTypes.func,
     match: PropTypes.object,
     message: PropTypes.string,
+    error: PropTypes.string,
+    verifyLoading: PropTypes.bool,
     loading: PropTypes.bool,
   }
 
@@ -62,10 +66,8 @@ class DriverSettingsPage extends Component {
   }
 
   componentWillReceiveProps(nextProp) {
-    if (this.props.message !== nextProp.message) {
-      if(!_.isNil(nextProp.message)) {
-        toast.info(nextProp.message)
-      }
+    if (this.props.message !== nextProp.message && !_.isNil(nextProp.message)) {
+      toast.info(nextProp.message)
     }
   }
 
@@ -76,6 +78,7 @@ class DriverSettingsPage extends Component {
       cancelStudentOrder,
       verifyDriver,
       loading,
+      verifyLoading,
       updateDriverInfo } = this.props
 
     if (loading === true) {
@@ -102,7 +105,9 @@ class DriverSettingsPage extends Component {
             <span> 已验证</span> :
             <span>
               <span> 未验证</span>
-              <VerifyDriverButton verifyDriver={verifyDriverAction}/>
+              <VerifyDriverButton
+                verifyLoading={verifyLoading}
+                verifyDriver={verifyDriverAction}/>
             </span>
           }
         </ListGroupItem>

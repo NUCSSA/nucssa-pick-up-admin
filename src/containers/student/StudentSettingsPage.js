@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import { ListGroupItem } from 'react-bootstrap'
 import _ from 'lodash'
+import { ToastContainer, toast } from 'react-toastify'
 import StudentInfo from 'src/components/student/StudentInfo'
 import StudentOrder from '../../components/order/StudentOrder'
 
@@ -14,6 +15,7 @@ import StudentOrder from '../../components/order/StudentOrder'
     studentInfo,
     updateStudentInfo,
     loading,
+    message,
     error,
   } = studentStore
   const { studentOrder, getStudentOrder, cancelDriverOrder, loadingOrder } = studentOrderStore
@@ -26,6 +28,7 @@ import StudentOrder from '../../components/order/StudentOrder'
     studentInfo,
     updateStudentInfo,
     loading,
+    message,
     loadingOrder,
     error,
   }
@@ -45,6 +48,7 @@ class StudentSettingsPage extends Component {
     updateStudentInfo: PropTypes.func,
     match: PropTypes.object,
     loading: PropTypes.bool,
+    message: PropTypes.string,
     loadingOrder: PropTypes.bool,
   }
 
@@ -52,6 +56,12 @@ class StudentSettingsPage extends Component {
     const { studentWechatId }  = this.props.match.params
     this.props.getStudentInfo( { studentWechatId })
     this.props.getStudentOrder({ studentWechatId })
+  }
+
+  componentWillReceiveProps(nextProp) {
+    if (this.props.message !== nextProp.message && !_.isNil(nextProp.message)) {
+      toast.info(nextProp.message)
+    }
   }
 
   render() {
@@ -74,6 +84,7 @@ class StudentSettingsPage extends Component {
     const { wechatId } = studentInfo
     return (
       <div>
+        <ToastContainer />
         <ListGroupItem><b>主要联系人ID</b>: {wechatId}</ListGroupItem>
         <ListGroupItem>
           <b>接单司机</b>:

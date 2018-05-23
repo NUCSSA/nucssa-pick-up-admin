@@ -11,9 +11,9 @@ class AlertMessage extends Component {
     }
   }
 
-  componentDidMount() {
-    setTimeout(() => {this.setState({ visible: false})}, 3000)
-  }
+  // componentDidMount() {
+  //   setTimeout(() => {this.setState({ visible: false})}, 3000)
+  // }
   static propTypes = {
     bsStyle: PropTypes.string,
     message: PropTypes.string,

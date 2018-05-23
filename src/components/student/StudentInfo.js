@@ -5,6 +5,7 @@ import { toJS } from 'mobx'
 import JsonSchemaForm from 'react-jsonschema-form'
 import _ from 'lodash'
 import {studentFormData} from 'src/data/schema/index'
+import 'src/styles/Student.css'
 
 @observer
 class StudentInfo extends Component {

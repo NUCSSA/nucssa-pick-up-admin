@@ -1,0 +1,15 @@
+.student-card {
+    position: relative;
+    float: left;
+    max-width: 350px;
+    display: inline-block;
+    padding: 5px;
+}
+
+.students {
+    display: inline;
+}
+
+.col-xs-3 {
+    padding-left: 0px;
+}

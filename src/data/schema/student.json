@@ -83,7 +83,9 @@
       },
       "arrivingTime": {
         "title": "到达时间",
-        "type": "string"
+        "type": "string",
+        "description": "例如 2018/08/27 15:44 注：请填写美东时间",
+        "format": "date-time"
       },
       "flightNumber": {
         "title": "航班号",
@@ -95,7 +97,15 @@
       },
       "luggageNumber": {
         "title": "行李箱总数量",
-        "type": "string"
+        "type": "number",
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
       },
       "remark": {
         "title": "备注",
@@ -108,6 +118,9 @@
       "ui:options": {
         "orderable": false
       }
+    },
+    "arrivingTime": {
+      "ui:widget": "alt-datetime"
     },
     "remark": {
       "ui:widget": "textarea"

@@ -15,15 +15,7 @@ const setError = function(err) {
 }
 
 class StudentStore {
-  @observable studentInfo = {
-    wechatId: '',
-    studentSet: [],
-    arrivingTime: '',
-    flightNumber: '',
-    address: '',
-    luggageNumber: '',
-    remark: '',
-  }
+  @observable studentInfo = null
 
   // @observable studentInfo = null
 
@@ -54,12 +46,13 @@ class StudentStore {
 
 
   @action async updateStudentInfo(wechatId, form) {
+    self.message = null
     try {
       await postUpdateStudent(wechatId, form)
-      self.message = '学生信息更新成功'
     } catch (err) {
-      self.setError(err)
+      setError(err)
     }
+    self.message = '学生信息更新成功'
   }
 
 }

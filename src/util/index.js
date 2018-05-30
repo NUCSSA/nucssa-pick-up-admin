@@ -28,7 +28,7 @@ export const parseTimeInUSEastTimezone = function(time) {
     throw new Error('time cannot be undefined')
   }
 
-  let parsedTime = momentTimezone(time, timeFormat).tz('America/New_York').format()
+  let parsedTime = momentTimezone.tz(time, timeFormat, 'America/New_York').format()
   if (parsedTime === 'Invalid date') {
     throw new Error(parsedTime)
   }

@@ -80,7 +80,7 @@ StudentSubmission.propTypes = {
     arrivingTime: PropTypes.string.isRequired,
     flightNumber: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
-    luggageNumber: PropTypes.string.isRequired,
+    luggageNumber: PropTypes.number.isRequired,
     remark: PropTypes.string,
   }).isRequired,
 }

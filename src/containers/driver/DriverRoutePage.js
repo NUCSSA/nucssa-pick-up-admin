@@ -6,10 +6,11 @@ import PropTypes from 'prop-types'
 
 // import DriverLoginPage from './DriverLoginPage'
 import DriverListPage from './DriverListPage'
+import DriverReportPage from './DriverReportPage'
 import DriverSettingsPage from './DriverSettingsPage'
 // import DriverOrdersPage from './DriverOrdersPage'
 // import DriverNavBar from 'src/components/driverList/NavBar'
-import { DRIVER_LIST, DRIVER_SETTINGS } from 'src/data/route/index'
+import { DRIVER_LIST, DRIVER_SETTINGS, DRIVER_REPORT } from 'src/data/route/index'
 
 
 class DriverRoutePage extends Component {
@@ -23,6 +24,7 @@ class DriverRoutePage extends Component {
       <div>
         <Switch>
           <Route path={DRIVER_LIST} component={DriverListPage}/>
+          <Route path={DRIVER_REPORT} component={DriverReportPage}/>
           <Route path={DRIVER_SETTINGS} component={DriverSettingsPage}/>
           <Route path={'*'} component={() => <Redirect to={DRIVER_LIST}/> } />
         </Switch>

@@ -8,6 +8,8 @@ export const PARAMS_DRIVER_WECHAT_ID = ':driverWechatId'
 
 export const DRIVER_LIST = DRIVER + '/list'
 
+export const DRIVER_REPORT = DRIVER + '/report'
+
 export const DRIVER_SETTINGS = DRIVER + '/settings/' + PARAMS_DRIVER_WECHAT_ID
 
 

@@ -13,6 +13,8 @@ const DELETE_DRIVER_ORDER = ORDER_URI + '/driver/' + PARAMS_STUDENT_WECHAT_ID
 
 const STUDENT_ORDER = ORDER_URI + '/student/' + PARAMS_STUDENT_WECHAT_ID
 
+const DRIVER_ORDER_REPORT = ORDER_URI + '/listOfDriverAndOrdersTaken'
+
 const getDriverOrderList = function ( { driverWechatId }) {
   return buildParamURI({
     originalURI: DRIVER_ORDERS,
@@ -67,4 +69,9 @@ export const cancelDriverOrder = async function({ studentWechatId }) {
   const uri = deleteDriverOrder({ studentWechatId})
   const headers = buildAuthHeader()
   return await axios.delete(uri, { headers })
+}
+
+export const getDriverReport = async function() {
+  const headers = buildAuthHeader()
+  return axios.get(DRIVER_ORDER_REPORT, { headers })
 }

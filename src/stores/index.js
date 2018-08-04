@@ -3,6 +3,7 @@ import routingStore from './routing'
 import driverListStore from './driverList'
 import driverStore from'./driver'
 import driverOrderStore from './driverOrder'
+import driverReportStore from './driverReport'
 import studentListStore from './studentList'
 import studentStore from './student'
 import studentOrderStore from './studentOrder'
@@ -13,6 +14,7 @@ const stores = {
   driverStore,
   driverListStore,
   driverOrderStore,
+  driverReportStore,
   studentStore,
   studentListStore,
   studentOrderStore,

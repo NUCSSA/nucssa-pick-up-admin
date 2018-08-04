@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 
-import { ROOT, DRIVER, STUDENT } from 'src/data/route'
+import { ROOT, DRIVER, STUDENT, DRIVER_REPORT } from 'src/data/route'
 
 @observer
 class NavBar extends Component {
@@ -41,6 +41,14 @@ class NavBar extends Component {
             <Link to={DRIVER}>
               <Button className={'pull-right'}>
                 司机
+              </Button>
+            </Link>
+          </Nav>
+
+          <Nav navbar>
+            <Link to={DRIVER_REPORT}>
+              <Button className={'pull-right'}>
+                接单报告
               </Button>
             </Link>
           </Nav>

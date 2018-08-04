@@ -118,7 +118,7 @@ class DriverSettingsPage extends Component {
             driverSubmission={driverInfo}/>
         </ListGroupItem>
         <ListGroupItem>
-          <b>接单状态</b>:
+          <b>接单状态({driverOrders.length})</b>:
           <DriverOrders
             driverOrders={driverOrders}
             driverWechatId={wechatId}
